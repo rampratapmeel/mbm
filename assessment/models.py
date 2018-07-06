@@ -1,8 +1,10 @@
 from django.db import models
 from enum import Enum
 from user.models import User
-from course.models import Course
+from course.models import Course, CourseOutcomes
+from student.models import Student
 from faculty.models import Faculty
+from datetime import date
 
 
 class QuestionType(Enum):
@@ -17,28 +19,28 @@ class AssessmentType(Enum):
 
 class Assessment(models.Model):
     course = models.ForeignKey(Course, on_delete=None)
-    type = [(tag, tag.value) for tag in AssessmentType]
-    start_date = models.DateField()
+    type = models.CharField(max_length=10, choices=[(tag.name, tag.value) for tag in AssessmentType], default=AssessmentType.Int)
+    start_date = models.DateField(default=date.today)
     duration = models.DurationField()
     faculty_id = models.ForeignKey(Faculty, on_delete=None)
-    year = models.PositiveSmallIntegerField(max_length=4)
+    year = models.PositiveSmallIntegerField()
+
+
 
 
 class AssessmentQuestion(models.Model):
-    question_type = [(tag, tag.value) for tag in QuestionType]
-    assessment = models.ForeignKey(Assessment, on_delete=None)
+    assessment = models.ForeignKey(Assessment, on_delete=models.CASCADE)
+    question_type = models.CharField(max_length=12, choices=[(tag.name, tag.value) for tag in QuestionType], default=QuestionType.P)
     text = models.TextField()
     max_marks = models.PositiveSmallIntegerField()
     question_order = models.PositiveSmallIntegerField()
     marking_scheme = models.TextField()
-  # outcome = models.ForeignKey(CourseOutcome , on_delete=None)
+    outcome = models.ForeignKey(CourseOutcomes, on_delete=None)
+
 
 
 class AssessmentResult(models.Model):
-    question = models.ForeignKey(AssessmentQuestion, on_delete=None)
-    student = models.ForeignKey(User, on_delete=None)
-
-    class Meta:
-        unique_together = (('question_id', 'student_id'),)
+    question = models.ForeignKey(AssessmentQuestion, on_delete=None,)
+    student = models.ForeignKey(Student, on_delete=None)
     obtained_marks = models.PositiveSmallIntegerField()
-    remarks = models.TextField()
+

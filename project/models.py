@@ -8,7 +8,7 @@ class Project(models.Model):
     supervisor = models.CharField(max_length=300)
     duration = models.DurationField()
     funding_agency = models.CharField(max_length=100)
-    amount = models.BigIntegerField(max_length=15)
+    amount = models.BigIntegerField()
     date_of_start = models.DateField(null=False)
     status = models.CharField(max_length=50, null=False)
     remarks = models.TextField()

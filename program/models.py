@@ -13,11 +13,11 @@ class Program(models.Model):
 class ProgramOutcome(models.Model):
     program = models.ForeignKey(Program, on_delete=None)
     text = models.TextField()
-    title = Course_name = models.CharField(max_length=150)
+    title = models.CharField(max_length=150)
 
 
 class ProgramFeedback(models.Model):
-    program = models.ForeignKey(Program)
+    program = models.ForeignKey(Program, on_delete=None)
     year = models.DateField()
     active = models.BooleanField(default=False)
 

@@ -1,0 +1,34 @@
+<body style="background-color: lightblue ;">
+<h3>Add a New Question</h3>
+
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% for field in form %}
+
+    <div class="form-group">
+        <div >
+            <!--<span class="text-danger la">{{ field.errors }}</span>-->
+        </div>
+        <label  >{{ field.label_tag }}</label>
+        <div class="form-group">
+        {% if field.name == 'text' %}
+            <textarea  name="text" value="{{ form.text.value }}" ></textarea>
+        {% else %}
+            {{ field }}
+        {% endif %}
+        </div>
+    </div>
+
+    {% endfor %}
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+    </div>
+
+</form>
+
+</body>

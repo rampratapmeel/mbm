@@ -1,0 +1,70 @@
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+</style>
+
+</head>
+
+
+
+<body style="background-color: lightblue ;">
+<h1>Assessment</h1>
+<form action="{% url 'assessment:assessment-entry'  %}" method="post" style="display: inline;">
+            {% csrf_token %}
+                <div style="position: absolute; top: 0; right: 0" ><button type="submit" class="btn btn-default btn-sm">Make a Assessment entry here</button></div>
+</form>
+
+<table>
+  <tr>
+    <th>Assessment ID</th>
+    <th>Course</th>
+    <th>Type</th>
+    <th>Year</th>
+    <th>Start Date</th>
+    <th>Duration</th>
+    <th>Faculty</th>
+    <th>Status</th>
+    <th>Result</th>
+  </tr>
+
+{% for list in assessment_list %}
+  <tr class="assrow" data-id="{{list.id}}">
+     <td><a href ="{% url 'assessment:detail' list.id %}">{{ list.id }}</a></td>
+     <td>{{ list.course }} </td>
+     <td>{{ list.type }}</td>
+     <td>{{ list.year }}</td>
+     <td>{{ list.start_date}}</td>
+     <td>{{ list.duration }}</td>
+     <td>{{ list.faculty_id }}</td>
+
+
+      <form action="{% url 'assessment:update' list.id  %}" method="post" style="display: inline;">
+            {% csrf_token %}
+        <td><button type="submit" class="btn btn-default btn-sm update" >Update</button></td>
+        </form>
+
+      <td><a href ="{% url 'assessment:result' list.id %}">Create</a></td>
+  </tr>
+
+
+{% endfor %}
+</table>
+
+
+
+</body>

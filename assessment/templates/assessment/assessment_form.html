@@ -1,0 +1,12 @@
+<h3>Add a New Assessment</h3>
+
+
+<form class="from-horizontal"  action="" method="post" enctype="multipart/form-data" target="_self">
+    {% csrf_token %}
+    {% include 'assessment/form_template.html' %}
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" formtarget="_self" class="btn btn-success">Submit</button>
+        </div>
+    </div>
+</form>

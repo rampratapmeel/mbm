@@ -1,0 +1,30 @@
+<head>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="application/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+</head>
+
+<body style="background-color: lightblue ;">
+{% for field in form %}
+        <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <!--<span class="text-danger small">{{ field.errors }}</span>-->
+        </div>
+        <label class="control-label col-sm-2">{{ field.label_tag }}</label>
+        <div class="form-group">
+        {% if field.name == 'start_date' %}
+            <input type="date"  name="start_date" value="{{ form.start_date.value }}" ></input>
+        {% else %}
+            {{ field }}
+        {% endif %}
+        </div>
+        </div>
+{% endfor %}
+</body>

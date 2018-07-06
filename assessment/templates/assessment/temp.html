@@ -1,0 +1,22 @@
+<form class="from-horizontal"  action="" method="post" enctype="multipart/form-data" target="_self">
+    {% csrf_token %}
+
+  {% for obj in students %}
+  {% for obje in temp %}
+  <div class="form-group">
+    {% for field in form %}
+      {% if field.name == 'obtained_marks' %}
+      <input type="text" name="obtained_marks" />
+
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% endfor %}
+  {% endfor %}
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" formtarget="_self" class="btn btn-success">Submit</button>
+        </div>
+    </div>
+</form>
